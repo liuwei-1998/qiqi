@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery渐变轮播图</title>
+    <link rel="icon" href="bilibili.ico" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .box {
+            margin: 100px auto;
+            width: 880px;
+            height: 387px;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+        
+        ul,
+        ol {
+            list-style: none;
+        }
+        
+        .box ul {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 900px;
+        }
+        
+        .img-list li {
+            position: absolute;
+            left: 0;
+            right: 0;
+            display: none;
+        }
+        
+        .box img {
+            display: block;
+            width: 880px;
+            height: 387px;
+        }
+        
+        .icon-list {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+        }
+        
+        .icon-list li {
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            color: #fff;
+            background-color: #333;
+            text-align: center;
+            margin: 0 10px;
+            border: 1px solid #fff;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .icon-list li.active {
+            border-color: orange;
+            color: orange;
+        }
+        
+        .prev-btn,
+        .next-btn {
+            position: absolute;
+            z-index: 10;
+            top: 50%;
+            margin-top: -50px;
+            width: 40px;
+            height: 100px;
+            background: url(index.png) no-repeat;
+            cursor: pointer;
+        }
+        
+        .prev-btn {
+            left: 0;
+            background-position: 0 0;
+        }
+        
+        .next-btn {
+            right: 0;
+            background-position: -50px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="img-list">
+            <ul>
+                <li>
+                    <a href="http://yxwjdlj.biligame.com/yy/?msource=1&source=trackadf_123531e30e9246e5944bbaec6d7556d5&gameID=1524" class target="_blank"><img src="01.jpg"></a>
+                </li>
+                <li>
+                    <a href="https://game.bilibili.com/deadcells/?msource=1&source=trackadf_1294839ff9ee45bfb31d2959ef37ff92&gameID=2301" class target="_blank"><img src="02.jpg"></a>
+                </li>
+                <li>
+                    <a href="https://www.bilibili.com/read/cv9258551?spm_id_from=333.851.b_7265706f7274466972737431.5" class target="_blank"><img src="03.jpg"></a>
+                </li>
+                <li>
+                    <a href="https://www.bilibili.com/bangumi/play/ep374014/?spm_id_from=333.851.b_7265706f7274466972737431.4" class target="_blank"><img src="04.jpg"></a>
+                </li>
+                <li>
+                    <a href="https://www.bilibili.com/bangumi/play/ep373925/?spm_id_from=333.851.b_7265706f7274466972737431.5" class target="_blank"><img src="05.jpg"></a>
+                </li>
+            </ul>
+        </div>
+
+        <ol class="icon-list">
+            <li class="active">1</li>
+            <li class>2</li>
+            <li class>3</li>
+            <li class>4</li>
+            <li class>5</li>
+        </ol>
+        <span class="prev-btn"></span>
+        <span class="next-btn"></span>
+    </div>
+    <script src="./jquery/jquery-3.4.1.js"></script>
+    <script>
+        $(function() {
+            $('.box ul li:first').show();
+            var num = 0;
+            $('.next-btn').click(function() {
+                num++;
+                if (num > 4) {
+                    num = 0;
+                }
+                $('.box ol li').eq(num).addClass('active').siblings().removeClass('active');
+                $('.box ul li').eq(num).stop().fadeIn(500).siblings().stop().fadeOut(500);
+            });
+            $('.prev-btn').click(function() {
+                num--;
+                if (num < 0) {
+                    num = 4;
+                }
+                $('.box ol li').eq(num).addClass('active').siblings().removeClass('active');
+                $('.box ul li').eq(num).stop().fadeIn(500).siblings().stop().fadeOut(500);
+            });
+
+            //点击小圆点----------------------------------------
+            $('.box ol li').click(function() {
+                var num = $(this).index();
+                $(this).addClass('active').siblings().removeClass('active');
+                $('.box ul li').eq(num).stop().fadeIn(500).siblings().stop().fadeOut(500);
+            })
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="javascript:alert('清除成功');">清除缓存</a>
+
+    <script>
+        function isOrNot() {
+            return new Promise(function(resolved, rejected) {
+                let ms = 1000 * (Math.floor(Math.random() * 5) + 1);
+                setTimeout(resolved, ms, ms);
+            });
+        };
+
+        isOrNot().then(value => {
+            console.log('又想了你', value, '秒！');
+            return isOrNot();
+        }).then(value => {
+            console.log('又想了你', value, '秒！');
+            return isOrNot();
+        }).then(value => {
+            console.log('又想了你', value, '秒！');
+            return isOrNot();
+        }).then(value => {
+            console.log('又想了你', value, '秒！');
+            return isOrNot();
+        });
+
+
+        setTimeout(() => {
+            console.log("0")
+        }, 0)
+        new Promise((resolve, reject) => {
+            console.log("1")
+            resolve()
+        }).then(() => {
+            console.log("2")
+            new Promise((resolve, reject) => {
+                console.log("3")
+                resolve()
+            }).then(() => {
+                console.log("4")
+            }).then(() => {
+                console.log("5")
+            })
+        }).then(() => {
+            console.log("6")
+        })
+
+        new Promise((resolve, reject) => {
+            console.log("7")
+            resolve()
+        }).then(() => {
+            console.log("8")
+        })
+    </script>
+</body>
+
+</html>
